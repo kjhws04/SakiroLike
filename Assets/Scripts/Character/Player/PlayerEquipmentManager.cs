@@ -158,5 +158,32 @@ namespace Sa
         {
 
         }
+
+        /// <summary>
+        /// DAMAGE COLLIDERS
+        /// </summary>
+        public void OpenDamageCollider()
+        {
+            if (player.playerNetworkManager.isUsingRightHand.Value)
+            {
+                rightWeaponManager.meleeDamageCol.EnableDamageCollider();
+            }
+            else if (player.playerNetworkManager.isUsingLeftHand.Value)
+            {
+                leftWeaponManager.meleeDamageCol.EnableDamageCollider();
+            }
+        }
+
+        public void CloseDamageCollider()
+        {
+            if (player.playerNetworkManager.isUsingRightHand.Value)
+            {
+                rightWeaponManager.meleeDamageCol.DisableDamageCollider();
+            }
+            else if (player.playerNetworkManager.isUsingLeftHand.Value)
+            {
+                leftWeaponManager.meleeDamageCol.DisableDamageCollider();
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace SA
     public class DamageColider : MonoBehaviour
     {
         [Header("Collider")]
-        protected Collider damageCol;
+        [SerializeField] protected Collider damageCol;
 
         [Header("Damage Options")]
         public float physicalDamage = 0;
@@ -17,12 +17,17 @@ namespace SA
         public float holyDamage = 0;
 
         [Header("Contact Point")]
-        private Vector3 contackPoint;
+        public Vector3 contackPoint;
 
         [Header("Characters Damaged")]
         protected List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void Awake()
+        {
+
+        }
+
+        protected virtual void OnTriggerEnter(Collider other)
         {
             CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
 
@@ -39,7 +44,6 @@ namespace SA
                 // damage
                 DamageTarget(damageTarget);
             }
-            
         }
 
         protected virtual void DamageTarget(CharacterManager damageTarget)
@@ -57,7 +61,7 @@ namespace SA
             damageEffect.fireDamage = fireDamage;
             damageEffect.lightningDamage = lightningDamage;
             damageEffect.holyDamage = holyDamage;
-            damageEffect.contackPoint = contackPoint;
+            damageEffect.contactPoint = contackPoint;
 
             damageTarget.characterEffectsManager.ProcessInstantEffect(damageEffect);
         }

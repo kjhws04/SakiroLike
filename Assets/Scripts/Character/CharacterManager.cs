@@ -17,6 +17,7 @@ namespace SA
         [HideInInspector] public CharacterNetworkManager characterNetworkManager;
         [HideInInspector] public CharacterEffectsManager characterEffectsManager;
         [HideInInspector] public CharacterAnimationManager characterAnimationManager;
+        [HideInInspector] public CharacterCombatManager characterCombatManager;
 
         [Header("Flag")]
         public bool isPerformingAcion = false;
@@ -35,6 +36,7 @@ namespace SA
             characterNetworkManager = GetComponent<CharacterNetworkManager>();
             characterEffectsManager = GetComponent<CharacterEffectsManager>();
             characterAnimationManager = GetComponent<CharacterAnimationManager>();
+            characterCombatManager = GetComponent<CharacterCombatManager>();
         }
 
         protected virtual void Start()
