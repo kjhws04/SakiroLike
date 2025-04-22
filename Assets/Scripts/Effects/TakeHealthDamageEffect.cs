@@ -7,7 +7,7 @@ namespace SA
     public class TakeHealthDamageEffect : InstantCharacterEffect
     {
         [Header("Character Health Damage")]
-        public CharacterManager characterHealthDamage;
+        public CharacterManager characterCausingDamage;
 
         [Header("Damage Options")]
         public float physicalDamage = 0;
@@ -34,7 +34,7 @@ namespace SA
 
         [Header("Direction Damage Taken From")]
         public float angleHitFrom;
-        public Vector3 contackPoint;
+        public Vector3 contactPoint;
 
         public override void ProcessEffect(CharacterManager character)
         {
@@ -63,7 +63,7 @@ namespace SA
             if (!character.IsOwner)
                 return;
 
-            if (characterHealthDamage == null)
+            if (characterCausingDamage == null)
             {
                 // 데미지룰 확 인하고 기본 데미지(물리, 마법, 화염, 번개, 신성)를  설정
             }

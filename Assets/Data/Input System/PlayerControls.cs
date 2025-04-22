@@ -192,7 +192,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""RB"",
                     ""type"": ""Button"",
-                    ""id"": ""6f6a1a27-5881-4907-bc03-d1e56850d032"",
+                    ""id"": ""9a528d38-f72a-4ac5-b002-70248a640ffc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap"",
@@ -233,7 +233,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2d9de53f-c8e1-4e30-a7af-dd391ae70c22"",
+                    ""id"": ""09688ead-1a62-4d6a-b24b-b1ab373a2d5e"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",

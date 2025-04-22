@@ -81,5 +81,103 @@ namespace SA
             character.applyRootMotion = applyRootMotion;
             character.anim.CrossFade(animationID, 0.2f);
         }
+
+        /// 공격 애니메이션
+
+        // 서버 RPC는 클라이언트에서 서버로 호출되는 함수 (현재는 호스트)
+        [ServerRpc]
+        public void NotifyTheServerOfAttackAcionAnimationServerRpc(ulong clientID, string animationID, bool applyRootMotion)
+        {
+            // 이 캐릭터가 호스트/서버라면, 클라이언트 RPC를 활성화
+            if (IsServer)
+            {
+                PlayAttackAcionAnimationForAllClientsClientRpc(clientID, animationID, applyRootMotion);
+            }
+        }
+
+        // 클라이언트 RPC는 서버에서 모든 클라이언트로 전송되는 함수
+        [ClientRpc]
+        public void PlayAttackAcionAnimationForAllClientsClientRpc(ulong clientID, string animationID, bool applyRootMotion)
+        {
+            // 이 함수를 보낸 캐릭터에서 실행하지 않도록 하기 위해 확인 (애니메이션을 두 번 재생 방지)
+            if (clientID != NetworkManager.Singleton.LocalClientId)
+            {
+                PerformAttackAcionAnimationFromServer(animationID, applyRootMotion);
+            }
+        }
+
+        private void PerformAttackAcionAnimationFromServer(string animationID, bool applyRootMotion)
+        {
+            character.applyRootMotion = applyRootMotion;
+            character.anim.CrossFade(animationID, 0.2f);
+        }
+
+        /// 데미지
+        [ServerRpc(RequireOwnership = false)]
+        public void NotifyTheServerOfCharacterDamageServerRpc(
+            ulong damageCharacterID,
+            ulong characterCausingDamageID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float lightningDamage,
+            float holyDamage,
+            float angleHitFrom,
+            float contactPointX,
+            float contactPointY,
+            float contactPointZ)
+        {
+            if (IsServer)
+            {
+                NotifyTheServerOfCharacterDamageClientRpc(damageCharacterID, characterCausingDamageID, physicalDamage, magicDamage, fireDamage, lightningDamage, holyDamage, angleHitFrom, contactPointX, contactPointY, contactPointZ);
+            }
+        }
+
+        [ClientRpc]
+        public void NotifyTheServerOfCharacterDamageClientRpc(
+            ulong damageCharacterID,
+            ulong characterCausingDamageID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float lightningDamage,
+            float holyDamage,
+            float angleHitFrom,
+            float contactPointX,
+            float contactPointY,
+            float contactPointZ)
+        {
+            ProcessCharacterDamageFromServer(damageCharacterID, characterCausingDamageID, physicalDamage, magicDamage, fireDamage, lightningDamage, holyDamage, angleHitFrom, contactPointX, contactPointY, contactPointZ);
+        }
+
+        public void ProcessCharacterDamageFromServer(
+            ulong damageCharacterID,
+            ulong characterCausingDamageID,
+            float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float lightningDamage,
+            float holyDamage,
+            float angleHitFrom,
+            float contactPointX,
+            float contactPointY,
+            float contactPointZ)
+        {
+            CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damageCharacterID].gameObject.GetComponent<CharacterManager>();
+            CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
+
+            TakeHealthDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeHealthDamageEffect);
+
+            damageEffect.physicalDamage = physicalDamage;
+            damageEffect.magicDamage = magicDamage;
+            damageEffect.fireDamage = fireDamage;
+            damageEffect.lightningDamage = lightningDamage;
+            damageEffect.holyDamage = holyDamage;
+            damageEffect.angleHitFrom = angleHitFrom;
+            damageEffect.contactPoint = new Vector3(contactPointX, contactPointY, contactPointZ);
+            damageEffect.characterCausingDamage = characterCausingDamage;
+
+            damagedCharacter.characterEffectsManager.ProcessInstantEffect(damageEffect);
+        }
     }
 }

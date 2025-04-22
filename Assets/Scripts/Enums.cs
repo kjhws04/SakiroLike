@@ -26,3 +26,9 @@ public enum WeaponModelSlot
     Right_Hand,
     Left_Hand,
 }
+
+public enum AttackType
+{
+    LightAttack01,
+
+}

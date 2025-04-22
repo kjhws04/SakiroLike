@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Straigth Sword Weapon
   itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemDescription: A straight sword
-  itemID: 0
+  itemID: 2
   weaponModel: {fileID: 5068347119627079431, guid: c68d077a2ea9e974fa0b602c653a8391, type: 3}
   strengthREQ: 10
   dexREQ: 10
@@ -25,5 +25,7 @@ MonoBehaviour:
   magicDamage: 0
   fireDamage: 0
   lightningDamage: 0
+  holyDamage: 0
   poiseDamage: 25
   baseStaminaCost: 20
+  rbAction: {fileID: 11400000, guid: 5cc41e213e20af2489b5599667b0ddb3, type: 2}

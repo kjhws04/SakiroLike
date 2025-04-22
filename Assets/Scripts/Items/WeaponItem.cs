@@ -23,8 +23,12 @@ namespace SA
         [Header("Weapon Poise")]
         public float poiseDamage = 10;
 
-        [Header("Stamina Cost")]
+        [Header("Attack Modifiers")]
+        public float light_Attack_01_Modifier = 1.1f;
+
+        [Header("Stamina Cost Modifiers")]
         public int baseStaminaCost = 20;
+        public float lightAttackStaminaCost = 0.9f;
 
         [Header("Actions")]
         public WeaponItemAction rbAction;

@@ -89,6 +89,8 @@ namespace SA
                 playerControls.PlayerActions.Jump.performed += ctx => jumpInput = true;
                 playerControls.PlayerActions.RB.performed += ctx => RB_Input = true;
 
+                // RB는 패드 기준이므로, 추후 키보드 입력일 시 변수명 변경 필요 (현재는 mouse leftButton에 할당)
+
                 // 지속성 입력 
                 playerControls.PlayerActions.Sprint.performed += ctx => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += ctx => sprintInput = false;
