@@ -2,6 +2,8 @@ using Sa;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
+using Unity.PlasticSCM.Editor.WebApi;
 
 namespace SA
 {
@@ -62,6 +64,7 @@ namespace SA
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallBack;
 
             if (IsOwner)
             {
@@ -96,6 +99,25 @@ namespace SA
             }
         }
 
+        private void OnClientConnectedCallBack(ulong clientID)
+        {
+            // 게임에 있는 플레이어의 목록을 유지
+            WorldSessionManager.instance.AddPlayerToActivePlayersList(this);
+            
+            // 서버인 경우 호스트이므로 플레이어를 로드하여 동기화할 필요가 없음
+            // 당신이 존재하지 않는 게임에 참여하면, 다른 플레이어의 장비를 로드하여 동기화 해야 함
+            if (!IsServer && IsOwner)
+            {
+                foreach (var player in WorldSessionManager.instance.players)
+                {
+                    if (player != this)
+                    {
+                        player.LoadOtherPlayerCharacterWhenJoiningServer();
+                    }
+                }
+            }
+        }
+
         public override IEnumerator PrecessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
             if (IsOwner)
@@ -116,7 +138,7 @@ namespace SA
                 playerNetworkManager.currentStamina.Value = playerNetworkManager.maxStamina.Value;
                 // 체력, 스테미너 UI 업데이트
 
-                playerAnimationManager.PlayTargetAnimation("Empty", false);
+                playerAnimationManager.PlayTargetActionAnimation("Empty", false);
             }
         }
 
@@ -161,6 +183,15 @@ namespace SA
             playerNetworkManager.currentStamina.Value = currentCharacterData.currentStamia;
             PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
         }   
+
+        public void LoadOtherPlayerCharacterWhenJoiningServer()
+        {
+            // Sync Weapons
+            playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, playerNetworkManager.currentRightHandWeaponID.Value);
+            playerNetworkManager.OnCurrentLeftHandWeaponIDChange(0, playerNetworkManager.currentLeftHandWeaponID.Value);
+
+            // Sync Armor
+        }
 
         // TODO : Debug Menu
         private void DebugMenu()

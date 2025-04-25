@@ -20215,11 +20215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c5a52f31bf76640b059d02514beb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageCol: {fileID: 0}
   physicalDamage: 25
   magicDamage: 0
   fireDamage: 0
   lightningDamage: 0
   holyDamage: 0
+  contackPoint: {x: 0, y: 0, z: 0}
 --- !u!65 &1897642547
 BoxCollider:
   m_ObjectHideFlags: 0

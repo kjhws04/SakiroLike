@@ -8,6 +8,9 @@ namespace SA
     {
         public static WorldCharacterEffectsManager instance;
 
+        [Header("VFX")]
+        public GameObject bloodSplatterVFX;
+
         [Header("Damage")]
         public TakeHealthDamageEffect takeHealthDamageEffect;
 

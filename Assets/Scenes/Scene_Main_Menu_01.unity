@@ -5193,6 +5193,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4702110563647422094, guid: b95f33b2deb60ed4d9d761e9a231218f, type: 3}
+      propertyPath: bloodSplatterVFX
+      value: 
+      objectReference: {fileID: 231575712860735735, guid: c67428befa947354382fb10631fb513f, type: 3}
+    - target: {fileID: 4702110563647422094, guid: b95f33b2deb60ed4d9d761e9a231218f, type: 3}
       propertyPath: instantEffects.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -5583,6 +5587,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5756005428026309484, guid: cd4b93f2d56325340b9ffd7b7a3dc58f, type: 3}
+      propertyPath: physicalDamageSFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756005428026309484, guid: cd4b93f2d56325340b9ffd7b7a3dc58f, type: 3}
+      propertyPath: 'physicalDamageSFX.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: c266e86e5ec11e344bf66dede26cbc46, type: 3}
+    - target: {fileID: 5756005428026309484, guid: cd4b93f2d56325340b9ffd7b7a3dc58f, type: 3}
+      propertyPath: 'physicalDamageSFX.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 90fb91c5d9f18df4183363d36d921429, type: 3}
     - target: {fileID: 8666452352850225352, guid: cd4b93f2d56325340b9ffd7b7a3dc58f, type: 3}
       propertyPath: m_Name
       value: World Sound FX Manager
