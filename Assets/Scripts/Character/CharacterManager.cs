@@ -18,6 +18,7 @@ namespace SA
         [HideInInspector] public CharacterEffectsManager characterEffectsManager;
         [HideInInspector] public CharacterAnimationManager characterAnimationManager;
         [HideInInspector] public CharacterCombatManager characterCombatManager;
+        [HideInInspector] public CharacterSoundFXManager characterSoundFXManager;
 
         [Header("Flag")]
         public bool isPerformingAcion = false;
@@ -37,6 +38,7 @@ namespace SA
             characterEffectsManager = GetComponent<CharacterEffectsManager>();
             characterAnimationManager = GetComponent<CharacterAnimationManager>();
             characterCombatManager = GetComponent<CharacterCombatManager>();
+            characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
         }
 
         protected virtual void Start()
@@ -84,7 +86,7 @@ namespace SA
 
                 if (!manuallySelectDeathAnimation)
                 {
-                    characterAnimationManager.PlayTargetAnimation("Death_01", true);
+                    characterAnimationManager.PlayTargetActionAnimation("Death_01", true);
                 }
             }
 

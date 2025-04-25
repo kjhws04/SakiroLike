@@ -60,6 +60,7 @@ namespace SA
             damageEffect.lightningDamage = lightningDamage;
             damageEffect.holyDamage = holyDamage;
             damageEffect.contactPoint = contackPoint;
+            damageEffect.angleHitFrom = Vector3.SignedAngle(characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);
 
             switch (characterCausingDamage.characterCombatManager.currentAttackType)
             {

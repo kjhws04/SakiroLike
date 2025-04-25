@@ -233,11 +233,11 @@ namespace SA
                 Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
                 player.transform.rotation = playerRotation;
 
-                player.playerAnimationManager.PlayTargetAnimation("Roll_Forward_01", true, true);
+                player.playerAnimationManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
             }
             else //¹é½ºÅÇ
             {
-                player.playerAnimationManager.PlayTargetAnimation("Back_Step_01", true, true);
+                player.playerAnimationManager.PlayTargetActionAnimation("Back_Step_01", true, true);
             }
         }
 
@@ -264,7 +264,7 @@ namespace SA
         /// </summary>
         private void JumpAnimAndBoolAndCostCheck()
         {
-            player.playerAnimationManager.PlayTargetAnimation("Main_Jump_Start_01", false);
+            player.playerAnimationManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
             player.characterNetworkManager.isJumping.Value = true;
             player.playerNetworkManager.currentStamina.Value -= jumpStmainaCost;
 

@@ -78,7 +78,7 @@ namespace Sa
             if (!player.IsOwner)
                 return;
 
-            player.playerAnimationManager.PlayTargetAnimation("Swap_Right_Weapon_01", false, true, true, true);
+            player.playerAnimationManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false, true, true, true);
 
             WeaponItem selectedWeapon = null;
 

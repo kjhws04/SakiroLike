@@ -36,7 +36,14 @@ namespace SA
 
         public void StartNetworkAsHost()
         {
-            NetworkManager.Singleton.StartHost();
+            if (!NetworkManager.Singleton.IsListening)
+            {
+                NetworkManager.Singleton.StartHost();
+            }
+            else
+            {
+                Debug.LogWarning("Host is already running. StartHost() was not called again.");
+            }
         }
 
         public void StartNewGame()

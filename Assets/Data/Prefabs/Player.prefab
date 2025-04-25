@@ -1980,6 +1980,8 @@ MonoBehaviour:
   characterNetworkManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
   characterAnimationManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
+  characterSoundFXManager: {fileID: 0}
   isPerformingAcion: 0
   isGrounded: 0
   applyRootMotion: 0
@@ -2006,7 +2008,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671207fe5b8d7fd44b62b9c8ebda999a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeaponItem: {fileID: 0}
+  currentAttackType: 0
+  currentWeaponBeingUsed: {fileID: 0}
 --- !u!114 &1522546263995600146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2202,6 +2205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8e8d9cce646da4e97653467d5f6d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hit_Forward_Medium_01: hit_Forward_Medium_01
+  hit_Backward_Medium_01: hit_Backward_Medium_01
+  hit_Left_Medium_01: hit_Left_Medium_01
+  hit_Right_Medium_01: hit_Right_Medium_01
 --- !u!82 &-4420500510568662960
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2337,6 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1b67ba983225a49b2af5996e5417d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplatterVFX: {fileID: 0}
   effectToTest: {fileID: 11400000, guid: 50a06de6fc0f1c145b3a626776927a75, type: 2}
   effectToTest2: {fileID: 0}
   processEffect: 0
@@ -2355,9 +2363,9 @@ MonoBehaviour:
   currentRightWeapon: {fileID: 11400000, guid: c6d032642153e874f893be641574f34b, type: 2}
   currentLeftWeapon: {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
   weaponInRightHandSlots:
+  - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
+  - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
   - {fileID: 11400000, guid: c6d032642153e874f893be641574f34b, type: 2}
-  - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
-  - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
   rightHandSlotIndex: 0
   weaponInLeftHandSlots:
   - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
