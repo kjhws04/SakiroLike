@@ -80,16 +80,58 @@ namespace SA
 
         public void UpdateanimatorMovementParameters(float horizontalValue, float verticalValue, bool isSprinting)
         {
-            float horizontalAmout = horizontalValue;
-            float verticalAmount = verticalValue;
+            float snappedHorizontalAmout;
+            float snappedVerticalAmount;
+
+            if (horizontalValue > 0 && horizontalValue <= 0.5f)
+            {
+                snappedHorizontalAmout = 0.5f;
+            }
+            else if (horizontalValue > 0.5f && horizontalValue <= 1f)
+            {
+                snappedHorizontalAmout = 1f;
+            }
+            else if (horizontalValue < 0 && horizontalValue >= -0.5f)
+            {
+                snappedHorizontalAmout = -0.5f;
+            }
+            else if (horizontalValue < -0.5f && horizontalValue >= -1f)
+            {
+                snappedHorizontalAmout = -1f;
+            }
+            else
+            {
+                snappedHorizontalAmout = 0f;
+            }
+
+            if (verticalValue > 0 && verticalValue <= 0.5f)
+            {
+                snappedVerticalAmount = 0.5f;
+            }
+            else if (verticalValue > 0.5f && verticalValue <= 1f)
+            {
+                snappedVerticalAmount = 1f;
+            }
+            else if (verticalValue < 0 && verticalValue >= -0.5f)
+            {
+                snappedVerticalAmount = -0.5f;
+            }
+            else if (verticalValue < -0.5f && verticalValue >= -1f)
+            {
+                snappedVerticalAmount = -1f;
+            }
+            else
+            {
+                snappedVerticalAmount = 0f;
+            }
 
             if (isSprinting)
             {
-                verticalAmount = 2f;
+                snappedVerticalAmount = 2f;
             }
 
-            character.anim.SetFloat(horizontal, horizontalAmout, 0.1f, Time.deltaTime);
-            character.anim.SetFloat(vertical, verticalAmount, 0.1f, Time.deltaTime);
+            character.anim.SetFloat(horizontal, snappedHorizontalAmout, 0.1f, Time.deltaTime);
+            character.anim.SetFloat(vertical, snappedVerticalAmount, 0.1f, Time.deltaTime);
 
         }
 

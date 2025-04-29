@@ -16,6 +16,12 @@ namespace SA
         public float cameraVerticalInput;
         public float cameraHorizontalInput;
 
+        [Header("Lock On Input")]
+        [SerializeField] bool lockOnInput;
+        [SerializeField] bool lockOnLeftInput;
+        [SerializeField] bool lockOnRightInput;
+        private Coroutine lockOnCoroutine;
+
         [Header("Character Movement Input")]
         [SerializeField] Vector2 movementInput;
         public float verticalInput;
@@ -26,7 +32,7 @@ namespace SA
         [SerializeField] bool dodgeInput = false;
         [SerializeField] bool sprintInput = false;
         [SerializeField] bool jumpInput = false;
-        [SerializeField] bool RB_Input = false;
+        [SerializeField] bool lightAttack = false;
 
         private void Awake()
         {
@@ -37,7 +43,7 @@ namespace SA
             else
             {
                 Destroy(gameObject);
-            }   
+            }
         }
 
         private void Start()
@@ -65,7 +71,7 @@ namespace SA
                     playerControls.Enable();
                 }
             }
-            else 
+            else
             {
                 instance.enabled = false;
 
@@ -82,18 +88,21 @@ namespace SA
             {
                 playerControls = new PlayerControls();
 
-                // 단발성 입력
+                // Player & Camera Movement Input
                 playerControls.PlayerMovement.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
                 playerControls.PlayerCamera.Movement.performed += ctx => cameraInput = ctx.ReadValue<Vector2>();
+
+                // Action Input
                 playerControls.PlayerActions.Dodge.performed += ctx => dodgeInput = true;
                 playerControls.PlayerActions.Jump.performed += ctx => jumpInput = true;
-                playerControls.PlayerActions.RB.performed += ctx => RB_Input = true;
-
-                // RB는 패드 기준이므로, 추후 키보드 입력일 시 변수명 변경 필요 (현재는 mouse leftButton에 할당)
-
-                // 지속성 입력 
                 playerControls.PlayerActions.Sprint.performed += ctx => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += ctx => sprintInput = false;
+                playerControls.PlayerActions.LightAttack.performed += ctx => lightAttack = true;
+
+                // Lock On Input
+                playerControls.PlayerActions.LockOn.performed += ctx => lockOnInput = true;
+                playerControls.PlayerActions.SeekLeftLockOntarget.performed += ctx => lockOnLeftInput = true;
+                playerControls.PlayerActions.SeekRightLockOntarget1.performed += ctx => lockOnRightInput = true;
             }
 
             playerControls.Enable();
@@ -126,16 +135,18 @@ namespace SA
 
         private void HandleAllInputs()
         {
-            HandleCharacterMovementInput();
+            HandlePlayerMovementInput();
             HandleCameraMovementInput();
             HandleDodgeInput();
             HandleSprintInput();
             HandleJumpInput();
             HandleRBInput();
+            HandleLockOnInput();
+            HandleLockOnSwithTargetInput();
         }
 
-        #region Move
-        private void HandleCharacterMovementInput()
+        #region Movement
+        private void HandlePlayerMovementInput()
         {
             verticalInput = movementInput.y;
             horizontalInput = movementInput.x;
@@ -154,13 +165,95 @@ namespace SA
             if (player == null)
                 return;
 
-            player.playerAnimationManager.UpdateanimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
+            if (!player.playerNetworkManager.isLockOn.Value || player.playerNetworkManager.isSprinting.Value)
+            {
+                player.playerAnimationManager.UpdateanimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
+            }
+            else
+            {
+                player.playerAnimationManager.UpdateanimatorMovementParameters(horizontalInput, verticalInput, player.playerNetworkManager.isSprinting.Value);
+            }
         }
 
         private void HandleCameraMovementInput()
         {
             cameraHorizontalInput = cameraInput.x;
             cameraVerticalInput = cameraInput.y;
+        }
+        #endregion
+
+        #region Lock On
+        private void HandleLockOnInput()
+        {
+            if (player.playerNetworkManager.isLockOn.Value)
+            {
+                if (player.playerCombatManager.currentTarget == null)
+                    return;
+
+                if (player.playerCombatManager.currentTarget.isDead.Value)
+                {
+                    player.playerNetworkManager.isLockOn.Value = false;
+                }
+
+                if (lockOnCoroutine != null)
+                    StopCoroutine(lockOnCoroutine);
+
+                lockOnCoroutine = StartCoroutine(PlayerCamera.instance.WaitThenFindNewTarget());
+            }
+
+            if (lockOnInput && player.playerNetworkManager.isLockOn.Value)
+            {
+                lockOnInput = false;
+                PlayerCamera.instance.ClearLockOnTarget();   
+                player.playerNetworkManager.isLockOn.Value = false;
+                return;
+            }
+
+            if (lockOnInput && !player.playerNetworkManager.isLockOn.Value)
+            {
+                lockOnInput = false;
+
+                PlayerCamera.instance.HandleLocatingLockOnTargets();
+
+                if (PlayerCamera.instance.nearestLockOnTarget != null)
+                {
+                    player.playerCombatManager.SetTarget(PlayerCamera.instance.nearestLockOnTarget);
+                    player.playerNetworkManager.isLockOn.Value = true;
+                }
+            }
+        }
+
+        private void HandleLockOnSwithTargetInput()
+        {
+            if (lockOnLeftInput)
+            {
+                lockOnLeftInput = false;
+
+                if (player.playerNetworkManager.isLockOn.Value)
+                {
+                    PlayerCamera.instance.HandleLocatingLockOnTargets();
+
+                    if (PlayerCamera.instance.leftLockOnTarget != null)
+                    {
+                        player.playerCombatManager.SetTarget(PlayerCamera.instance.leftLockOnTarget);
+                    }
+                }
+            }
+
+            if (lockOnRightInput)
+            {
+                lockOnRightInput = false;
+
+                if (player.playerNetworkManager.isLockOn.Value)
+                {
+                    PlayerCamera.instance.HandleLocatingLockOnTargets();
+
+                    if (PlayerCamera.instance.rightLockOnTarget != null)
+                    {
+                        player.playerCombatManager.SetTarget(PlayerCamera.instance.rightLockOnTarget);
+                    }
+                }
+            }
         }
         #endregion
 
@@ -199,9 +292,9 @@ namespace SA
 
         private void HandleRBInput()
         {
-            if (RB_Input)
+            if (lightAttack)
             {
-                RB_Input = false;
+                lightAttack = false;
 
                 player.playerNetworkManager.SetCharacterAcionHand(true);
 

@@ -105,6 +105,9 @@ namespace SA
             if (!character.IsOwner)
                 return;
 
+            if (character.isDead.Value)
+                return;
+
             // todo : calculate if poise is broken
             poiseIsBroken = true;
 

@@ -16,6 +16,9 @@ namespace SA
         protected bool fallingVelocityHAsBeenSet = false;
         [SerializeField] protected float inAirTimer = 0;
 
+        [Header("Flags")]
+        public bool isRolling = false;
+
         protected virtual void Awake()
         {
             character = GetComponent<CharacterManager>();
