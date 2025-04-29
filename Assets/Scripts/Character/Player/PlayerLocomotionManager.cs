@@ -59,7 +59,14 @@ namespace SA
                 horizontalMovement = player.playerNetworkManager.animatorHorizontalMovement.Value;
                 moveAmount = player.playerNetworkManager.animatorMoveAmount.Value;
 
-                player.playerAnimationManager.UpdateanimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
+                if (!player.playerNetworkManager.isLockOn.Value || player.playerNetworkManager.isSprinting.Value)
+                {
+                    player.playerAnimationManager.UpdateanimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
+                }
+                else
+                {
+                    player.playerAnimationManager.UpdateanimatorMovementParameters(horizontalMovement, verticalMovement, player.playerNetworkManager.isSprinting.Value);
+                }
             }
         }
 
@@ -148,11 +155,48 @@ namespace SA
         #region Rotation
         private void HandleRotation()
         {
+            if (player.isDead.Value)
+                return;
+
             if (!player.canRotate)
                 return;
 
-            RotationDirectionCheck();
-            PerformRotation();
+            if (player.playerNetworkManager.isLockOn.Value)
+            {
+                if (player.playerNetworkManager.isSprinting.Value || player.playerLocomotionManager.isRolling)
+                {
+                    Vector3 targetDirection = Vector3.zero;
+                    targetDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+                    targetDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0;
+
+                    if (targetDirection == Vector3.zero)
+                        targetDirection = transform.forward;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                    Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    transform.rotation = finalRotation;
+                }
+                else
+                {
+                    if (player.playerCombatManager.currentTarget == null)
+                        return;
+
+                    Vector3 targetDirection;
+                    targetDirection = player.playerCombatManager.currentTarget.transform.position - transform.position;
+                    targetDirection.y = 0;
+                    targetDirection.Normalize();
+                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                    Quaternion finalRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                    transform.rotation = finalRotation;
+                }
+            }
+            else
+            {
+                RotationDirectionCheck();
+                PerformRotation();
+            }
         }
 
         /// <summary>
@@ -234,6 +278,7 @@ namespace SA
                 player.transform.rotation = playerRotation;
 
                 player.playerAnimationManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
+                player.playerLocomotionManager.isRolling = true;
             }
             else //¹é½ºÅÇ
             {
@@ -291,7 +336,6 @@ namespace SA
                 }
             }
         }
-
         #endregion
 
         #region Events

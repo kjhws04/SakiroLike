@@ -64,6 +64,7 @@ Transform:
   - {fileID: 1856904061649648090}
   - {fileID: 4241759182738600814}
   - {fileID: 3735934158720363041}
+  - {fileID: 8706024253146063989}
   m_Father: {fileID: 8423599112486537134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1474437247457112910
@@ -388,6 +389,37 @@ Transform:
   - {fileID: 5957784325237874448}
   m_Father: {fileID: 7518136247261771154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1640667715475123355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8706024253146063989}
+  m_Layer: 7
+  m_Name: Line Cast Option(Head)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8706024253146063989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640667715475123355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2702084839942780722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1908333822841769919
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +571,37 @@ CapsuleCollider:
   m_Height: 0.29
   m_Direction: 0
   m_Center: {x: 0.13, y: 0, z: 0}
+--- !u!1 &2587212516408408719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168086545933783444}
+  m_Layer: 7
+  m_Name: Line Cast Option(Lock On)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &168086545933783444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2587212516408408719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8310094087443581098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2873429888979501066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1247,7 @@ Transform:
   m_Children:
   - {fileID: 3943680577421173992}
   - {fileID: 7119417965897762093}
+  - {fileID: 168086545933783444}
   m_Father: {fileID: 5700698015764869649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &466389694902819546
@@ -2008,7 +2072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671207fe5b8d7fd44b62b9c8ebda999a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
   currentAttackType: 0
+  lockOnTransform: {fileID: 168086545933783444}
   currentWeaponBeingUsed: {fileID: 0}
 --- !u!114 &1522546263995600146
 MonoBehaviour:
@@ -2097,6 +2163,8 @@ MonoBehaviour:
   animatorVerticalMovement:
     m_InternalValue: 0
   animatorMoveAmount:
+    m_InternalValue: 0
+  isLockOn:
     m_InternalValue: 0
   isSprinting:
     m_InternalValue: 0
@@ -2205,10 +2273,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8e8d9cce646da4e97653467d5f6d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastDamageAnimationPlayed: 
   hit_Forward_Medium_01: hit_Forward_Medium_01
+  hit_Forward_Medium_02: hit_Forward_Medium_02
   hit_Backward_Medium_01: hit_Backward_Medium_01
-  hit_Left_Medium_01: hit_Left_Medium_01
+  hit_Backward_Medium_02: hit_Backward_Medium_02
   hit_Right_Medium_01: hit_Right_Medium_01
+  hit_Right_Medium_02: hit_Right_Medium_02
+  hit_Left_Medium_01: hit_Left_Medium_01
+  hit_Left_Medium_02: hit_Left_Medium_02
+  forward_Medium_Damage: []
+  backward_Medium_Damage: []
+  right_Medium_Damage: []
+  left_Medium_Damage: []
 --- !u!82 &-4420500510568662960
 AudioSource:
   m_ObjectHideFlags: 0
