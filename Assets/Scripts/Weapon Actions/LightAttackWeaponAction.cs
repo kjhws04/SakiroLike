@@ -6,6 +6,7 @@ namespace SA
     public class LightAttackWeaponAction : WeaponItemAction
     {
         [SerializeField] string light_Attack_01 = "Main_Light_Attack_01";
+        [SerializeField] string light_Attack_02 = "Main_Light_Attack_02";
 
         public override void AttemptToPerformAction(PlayerManager playerPerformingAcion, WeaponItem weaponPerformingAction)
         {
@@ -24,13 +25,22 @@ namespace SA
 
         private void PerformLightAttack(PlayerManager playerPerformingAcion, WeaponItem weaponPerformingAction)
         {
-            if (playerPerformingAcion.playerNetworkManager.isUsingRightHand.Value)
+            if (playerPerformingAcion.playerCombatManager.canComboWithMainHandWeapon && playerPerformingAcion.isPerformingAcion)
+            {
+                playerPerformingAcion.playerCombatManager.canComboWithMainHandWeapon = false;
+
+                if (playerPerformingAcion.characterCombatManager.lastAttackAnimationPerformed == light_Attack_01)
+                {
+                    playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack02, light_Attack_02, true);
+                }
+                else
+                {
+                    playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack01, light_Attack_01, true);
+                }
+            }
+            else if (!playerPerformingAcion.isPerformingAcion)
             {
                 playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack01, light_Attack_01, true);
-            }
-            if (playerPerformingAcion.playerNetworkManager.isUsingLeftHand.Value)
-            {
-
             }
         }
     }

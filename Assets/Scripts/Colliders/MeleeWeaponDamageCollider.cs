@@ -10,8 +10,11 @@ namespace SA
 
         [Header("Weapon Attack Modifiers")]
         public float light_Attack_01_Modifier;
+        public float light_Attack_02_Modifier;
         public float heavy_Attack_01_Modifier;
+        public float heavy_Attack_02_Modifier;
         public float hold_Attack_01_Modifier;   
+        public float hold_Attack_02_Modifier;
 
         protected override void Awake()
         {
@@ -69,11 +72,20 @@ namespace SA
                 case AttackType.LightAttack01:
                     ApplyAttackDamageModifiers(light_Attack_01_Modifier, damageEffect);
                     break;
+                case AttackType.LightAttack02:
+                    ApplyAttackDamageModifiers(light_Attack_02_Modifier, damageEffect);
+                    break;
                 case AttackType.HeavyAttack01:
-                    ApplyAttackDamageModifiers(light_Attack_01_Modifier, damageEffect);
+                    ApplyAttackDamageModifiers(heavy_Attack_01_Modifier, damageEffect);
+                    break;
+                case AttackType.HeavyAttack02:
+                    ApplyAttackDamageModifiers(heavy_Attack_02_Modifier, damageEffect);
                     break;
                 case AttackType.HoldAttack01:
                     ApplyAttackDamageModifiers(hold_Attack_01_Modifier, damageEffect);
+                    break;
+                case AttackType.HoldAttack02:
+                    ApplyAttackDamageModifiers(hold_Attack_02_Modifier, damageEffect);
                     break;
             }
 

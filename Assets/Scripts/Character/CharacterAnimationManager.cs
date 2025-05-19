@@ -164,6 +164,7 @@ namespace SA
             bool canMove = false)
         {
             character.characterCombatManager.currentAttackType = attackTpye;
+            character.characterCombatManager.lastAttackAnimationPerformed = targetAnimation;
 
             character.anim.applyRootMotion = applyRootMotion;
             character.anim.CrossFade(targetAnimation, 0.2f);
@@ -175,6 +176,16 @@ namespace SA
             character.canMove = canMove;
 
             character.characterNetworkManager.NotifyTheServerOfAcionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
+        }
+
+        public virtual void EnableCanDoCombo()
+        {
+
+        }
+
+        public virtual void DisableCanDoCombo()
+        {
+
         }
     }
 }
