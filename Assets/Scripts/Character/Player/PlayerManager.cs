@@ -9,10 +9,6 @@ namespace SA
 {
     public class PlayerManager : CharacterManager
     {
-        [Header("Debug Menu")]
-        [SerializeField] bool respawnPlayer = false;
-        [SerializeField] bool switchRightWeapon = false;    
-
         [HideInInspector] public PlayerAnimationManager playerAnimationManager;
         [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
         [HideInInspector] public PlayerNetworkManager playerNetworkManager;
@@ -47,8 +43,6 @@ namespace SA
 
             // Regen Stmina
             playerStatsManager.RegenerateStamina();
-
-            DebugMenu();
         }
 
         protected override void LateUpdate()
@@ -94,6 +88,9 @@ namespace SA
             playerNetworkManager.currentLeftHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
             playerNetworkManager.currentWeaponBeingUsed.OnValueChanged += playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
+            // 플레그
+            playerNetworkManager.isHoldAttack.OnValueChanged += playerNetworkManager.OnIsHoldAttackChanged;
+
             // 연결(spwin)되었을 때, 캐릭터의 소유자이지만 서버가 아닌 경우, 새로 생성된 캐릭터에 캐릭터 데이터를 다시 로드
             // 하지만 호스트인 서버는 이미 로드되어 있어 데이터를 다시 로드할 필요가 없음
 
@@ -101,6 +98,37 @@ namespace SA
             {
                 LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
             }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallBack;
+
+            if (IsOwner)
+            {
+                playerNetworkManager.vitality.OnValueChanged -= playerNetworkManager.SetNewMaxHealthValue;
+                playerNetworkManager.endurance.OnValueChanged -= playerNetworkManager.SetMaxNewStaminaValue;
+
+                playerNetworkManager.currentHealth.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetNewHealthValue;
+                playerNetworkManager.currentStamina.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetNewStaminaValue;
+                playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenTimer;
+            }
+
+            // 스텟
+            playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.CheckHp;
+
+            // 락온
+            playerNetworkManager.isLockOn.OnValueChanged -= playerNetworkManager.OnIsLockedOnChanged;
+            playerNetworkManager.currentTargetNetworkObjectID.OnValueChanged -= playerNetworkManager.OnLockOnTargetIDChange;
+
+            // 무기
+            playerNetworkManager.currentRightHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+            playerNetworkManager.currentLeftHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+            playerNetworkManager.currentWeaponBeingUsed.OnValueChanged -= playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+
+            // 플레그
+            playerNetworkManager.isHoldAttack.OnValueChanged -= playerNetworkManager.OnIsHoldAttackChanged;
         }
 
         private void OnClientConnectedCallBack(ulong clientID)
@@ -201,22 +229,6 @@ namespace SA
             if (playerNetworkManager.isLockOn.Value)
             {
                 playerNetworkManager.OnLockOnTargetIDChange(0, playerNetworkManager.currentTargetNetworkObjectID.Value);
-            }
-        }
-
-        // TODO : Debug Menu
-        private void DebugMenu()
-        {
-            if (respawnPlayer)
-            {
-                respawnPlayer = false;
-                ReviveCharacter();
-            }
-
-            if (switchRightWeapon)
-            {
-                switchRightWeapon = false;
-                playerEquipmentManager.SwitchRightHand();
             }
         }
     }

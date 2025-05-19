@@ -21,6 +21,8 @@ namespace SA
             meleeDamageCol.holyDamage = weapon.holyDamage;
 
             meleeDamageCol.light_Attack_01_Modifier = weapon.light_Attack_01_Modifier;
+            meleeDamageCol.heavy_Attack_01_Modifier = weapon.heavy_Attack_01_Modifier;
+            meleeDamageCol.hold_Attack_01_Modifier = weapon.hold_Attack_01_Modifier;
         }
     }
 }

@@ -30,4 +30,5 @@ MonoBehaviour:
   light_Attack_01_Modifier: 1.1
   baseStaminaCost: 20
   lightAttackStaminaCost: 0.9
-  rbAction: {fileID: 11400000, guid: 5cc41e213e20af2489b5599667b0ddb3, type: 2}
+  lightAttackAction: {fileID: 11400000, guid: 5cc41e213e20af2489b5599667b0ddb3, type: 2}
+  HeavyAttackAction: {fileID: 11400000, guid: 995eec0177d1cad4c84f9013d6543438, type: 2}
