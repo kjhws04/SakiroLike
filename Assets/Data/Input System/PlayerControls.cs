@@ -195,7 +195,25 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""9a528d38-f72a-4ac5-b002-70248a640ffc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heavy Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""10824f60-584c-4652-9037-abc894abb603"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hold Attack"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""364ad98b-e50d-4005-bf39-d6589c5f5c06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -226,9 +244,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Seek Right Lock On target1"",
+                    ""name"": ""Seek Right Lock On target"",
                     ""type"": ""Button"",
                     ""id"": ""ce3868d2-2543-41da-8792-d2b29c4c5744"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Left Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""f03fc708-9155-40e6-8405-e484d085433f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Right Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f00e57f-cd2b-408b-ad50-efad6911e890"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -271,6 +307,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""36682161-ea92-4fdb-9a41-f540342bd45f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b8b54fe-fc4e-49fa-a3f5-c30e9badb1ca"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hold Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3f4b3474-879f-4bfc-a87b-5f53bbf21d07"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -294,7 +352,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c9fd6d87-5431-4d8e-9475-f8a1c0cd697a"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -305,11 +363,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""88df0341-64e8-43e8-a709-d5551caa82be"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Seek Right Lock On target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78556b33-a4cf-4a2b-8dfb-aad778dda3a7"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Left Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d09c3c3-78b1-4cf6-aa56-93a2263c6d12"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Seek Right Lock On target1"",
+                    ""action"": ""Switch Right Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -374,10 +454,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_LightAttack = m_PlayerActions.FindAction("Light Attack", throwIfNotFound: true);
+        m_PlayerActions_HeavyAttack = m_PlayerActions.FindAction("Heavy Attack", throwIfNotFound: true);
+        m_PlayerActions_HoldAttack = m_PlayerActions.FindAction("Hold Attack", throwIfNotFound: true);
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("Lock On", throwIfNotFound: true);
         m_PlayerActions_SeekLeftLockOntarget = m_PlayerActions.FindAction("Seek Left Lock On target", throwIfNotFound: true);
-        m_PlayerActions_SeekRightLockOntarget1 = m_PlayerActions.FindAction("Seek Right Lock On target1", throwIfNotFound: true);
+        m_PlayerActions_SeekRightLockOntarget = m_PlayerActions.FindAction("Seek Right Lock On target", throwIfNotFound: true);
+        m_PlayerActions_SwitchLeftWeapon = m_PlayerActions.FindAction("Switch Left Weapon", throwIfNotFound: true);
+        m_PlayerActions_SwitchRightWeapon = m_PlayerActions.FindAction("Switch Right Weapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
@@ -545,10 +629,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Dodge;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_LightAttack;
+    private readonly InputAction m_PlayerActions_HeavyAttack;
+    private readonly InputAction m_PlayerActions_HoldAttack;
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_LockOn;
     private readonly InputAction m_PlayerActions_SeekLeftLockOntarget;
-    private readonly InputAction m_PlayerActions_SeekRightLockOntarget1;
+    private readonly InputAction m_PlayerActions_SeekRightLockOntarget;
+    private readonly InputAction m_PlayerActions_SwitchLeftWeapon;
+    private readonly InputAction m_PlayerActions_SwitchRightWeapon;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -556,10 +644,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @LightAttack => m_Wrapper.m_PlayerActions_LightAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_PlayerActions_HeavyAttack;
+        public InputAction @HoldAttack => m_Wrapper.m_PlayerActions_HoldAttack;
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
         public InputAction @SeekLeftLockOntarget => m_Wrapper.m_PlayerActions_SeekLeftLockOntarget;
-        public InputAction @SeekRightLockOntarget1 => m_Wrapper.m_PlayerActions_SeekRightLockOntarget1;
+        public InputAction @SeekRightLockOntarget => m_Wrapper.m_PlayerActions_SeekRightLockOntarget;
+        public InputAction @SwitchLeftWeapon => m_Wrapper.m_PlayerActions_SwitchLeftWeapon;
+        public InputAction @SwitchRightWeapon => m_Wrapper.m_PlayerActions_SwitchRightWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -578,6 +670,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LightAttack.started += instance.OnLightAttack;
             @LightAttack.performed += instance.OnLightAttack;
             @LightAttack.canceled += instance.OnLightAttack;
+            @HeavyAttack.started += instance.OnHeavyAttack;
+            @HeavyAttack.performed += instance.OnHeavyAttack;
+            @HeavyAttack.canceled += instance.OnHeavyAttack;
+            @HoldAttack.started += instance.OnHoldAttack;
+            @HoldAttack.performed += instance.OnHoldAttack;
+            @HoldAttack.canceled += instance.OnHoldAttack;
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
@@ -587,9 +685,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SeekLeftLockOntarget.started += instance.OnSeekLeftLockOntarget;
             @SeekLeftLockOntarget.performed += instance.OnSeekLeftLockOntarget;
             @SeekLeftLockOntarget.canceled += instance.OnSeekLeftLockOntarget;
-            @SeekRightLockOntarget1.started += instance.OnSeekRightLockOntarget1;
-            @SeekRightLockOntarget1.performed += instance.OnSeekRightLockOntarget1;
-            @SeekRightLockOntarget1.canceled += instance.OnSeekRightLockOntarget1;
+            @SeekRightLockOntarget.started += instance.OnSeekRightLockOntarget;
+            @SeekRightLockOntarget.performed += instance.OnSeekRightLockOntarget;
+            @SeekRightLockOntarget.canceled += instance.OnSeekRightLockOntarget;
+            @SwitchLeftWeapon.started += instance.OnSwitchLeftWeapon;
+            @SwitchLeftWeapon.performed += instance.OnSwitchLeftWeapon;
+            @SwitchLeftWeapon.canceled += instance.OnSwitchLeftWeapon;
+            @SwitchRightWeapon.started += instance.OnSwitchRightWeapon;
+            @SwitchRightWeapon.performed += instance.OnSwitchRightWeapon;
+            @SwitchRightWeapon.canceled += instance.OnSwitchRightWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -603,6 +707,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LightAttack.started -= instance.OnLightAttack;
             @LightAttack.performed -= instance.OnLightAttack;
             @LightAttack.canceled -= instance.OnLightAttack;
+            @HeavyAttack.started -= instance.OnHeavyAttack;
+            @HeavyAttack.performed -= instance.OnHeavyAttack;
+            @HeavyAttack.canceled -= instance.OnHeavyAttack;
+            @HoldAttack.started -= instance.OnHoldAttack;
+            @HoldAttack.performed -= instance.OnHoldAttack;
+            @HoldAttack.canceled -= instance.OnHoldAttack;
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
@@ -612,9 +722,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SeekLeftLockOntarget.started -= instance.OnSeekLeftLockOntarget;
             @SeekLeftLockOntarget.performed -= instance.OnSeekLeftLockOntarget;
             @SeekLeftLockOntarget.canceled -= instance.OnSeekLeftLockOntarget;
-            @SeekRightLockOntarget1.started -= instance.OnSeekRightLockOntarget1;
-            @SeekRightLockOntarget1.performed -= instance.OnSeekRightLockOntarget1;
-            @SeekRightLockOntarget1.canceled -= instance.OnSeekRightLockOntarget1;
+            @SeekRightLockOntarget.started -= instance.OnSeekRightLockOntarget;
+            @SeekRightLockOntarget.performed -= instance.OnSeekRightLockOntarget;
+            @SeekRightLockOntarget.canceled -= instance.OnSeekRightLockOntarget;
+            @SwitchLeftWeapon.started -= instance.OnSwitchLeftWeapon;
+            @SwitchLeftWeapon.performed -= instance.OnSwitchLeftWeapon;
+            @SwitchLeftWeapon.canceled -= instance.OnSwitchLeftWeapon;
+            @SwitchRightWeapon.started -= instance.OnSwitchRightWeapon;
+            @SwitchRightWeapon.performed -= instance.OnSwitchRightWeapon;
+            @SwitchRightWeapon.canceled -= instance.OnSwitchRightWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -700,10 +816,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDodge(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLightAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnHoldAttack(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
         void OnSeekLeftLockOntarget(InputAction.CallbackContext context);
-        void OnSeekRightLockOntarget1(InputAction.CallbackContext context);
+        void OnSeekRightLockOntarget(InputAction.CallbackContext context);
+        void OnSwitchLeftWeapon(InputAction.CallbackContext context);
+        void OnSwitchRightWeapon(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

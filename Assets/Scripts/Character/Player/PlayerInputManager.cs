@@ -32,7 +32,13 @@ namespace SA
         [SerializeField] bool dodgeInput = false;
         [SerializeField] bool sprintInput = false;
         [SerializeField] bool jumpInput = false;
+        [SerializeField] bool switchLeftWeaponInput = false;
+        [SerializeField] bool switchRightWeaponInput = false;
+
+        [Header("Character Attack Input")]
         [SerializeField] bool lightAttack = false;
+        [SerializeField] bool heavyAttack = false;
+        [SerializeField] bool holdAttack = false;
 
         private void Awake()
         {
@@ -97,12 +103,19 @@ namespace SA
                 playerControls.PlayerActions.Jump.performed += ctx => jumpInput = true;
                 playerControls.PlayerActions.Sprint.performed += ctx => sprintInput = true;
                 playerControls.PlayerActions.Sprint.canceled += ctx => sprintInput = false;
+                playerControls.PlayerActions.SwitchLeftWeapon.performed += ctx => switchLeftWeaponInput = true;
+                playerControls.PlayerActions.SwitchRightWeapon.performed += ctx => switchRightWeaponInput = true;
+
+                // Attack Input
                 playerControls.PlayerActions.LightAttack.performed += ctx => lightAttack = true;
+                playerControls.PlayerActions.HeavyAttack.performed += ctx => heavyAttack = true;
+                playerControls.PlayerActions.HoldAttack.performed += ctx => holdAttack = true;
+                playerControls.PlayerActions.HoldAttack.canceled += ctx => holdAttack = false;
 
                 // Lock On Input
                 playerControls.PlayerActions.LockOn.performed += ctx => lockOnInput = true;
                 playerControls.PlayerActions.SeekLeftLockOntarget.performed += ctx => lockOnLeftInput = true;
-                playerControls.PlayerActions.SeekRightLockOntarget1.performed += ctx => lockOnRightInput = true;
+                playerControls.PlayerActions.SeekRightLockOntarget.performed += ctx => lockOnRightInput = true;
             }
 
             playerControls.Enable();
@@ -137,10 +150,17 @@ namespace SA
         {
             HandlePlayerMovementInput();
             HandleCameraMovementInput();
+
             HandleDodgeInput();
             HandleSprintInput();
             HandleJumpInput();
-            HandleRBInput();
+
+            HandleLightAttackInput();
+            HandleHeavyAttackInput();
+            HandleHoldAttackInput();
+            HandleSwitchRightWeaponInput();
+            HandleSwitchLeftWeaponInput();
+
             HandleLockOnInput();
             HandleLockOnSwithTargetInput();
         }
@@ -179,6 +199,95 @@ namespace SA
         {
             cameraHorizontalInput = cameraInput.x;
             cameraVerticalInput = cameraInput.y;
+        }
+        #endregion
+
+        #region Actions
+        private void HandleDodgeInput()
+        {
+            if (dodgeInput)
+            {
+                dodgeInput = false;
+
+                player.playerLocomotionManager.AttemptToPerformDodge();
+            }
+        }
+
+        private void HandleSprintInput()
+        {
+            if (sprintInput)
+            {
+                player.playerLocomotionManager.HandleSprinting();
+            }
+            else
+            {
+                player.playerNetworkManager.isSprinting.Value = false;
+            }
+        }
+
+        private void HandleJumpInput()
+        {
+            if (jumpInput)
+            {
+                jumpInput = false;
+
+                player.playerLocomotionManager.AttemptToPerformJump();
+            }
+        }
+
+        private void HandleSwitchRightWeaponInput()
+        {
+            if (switchRightWeaponInput)
+            {
+                switchRightWeaponInput = false;
+                player.playerEquipmentManager.SwitchRightHand();
+            }
+        }
+
+        private void HandleSwitchLeftWeaponInput()
+        {
+            if (switchLeftWeaponInput)
+            {
+                switchLeftWeaponInput = false;
+                player.playerEquipmentManager.SwitchLeftHand();
+            }
+        }
+        #endregion
+
+        #region Attack
+        private void HandleLightAttackInput()
+        {
+            if (lightAttack)
+            {
+                lightAttack = false;
+
+                player.playerNetworkManager.SetCharacterAcionHand(true);
+
+                player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightWeapon.lightAttackAction, player.playerInventoryManager.currentRightWeapon);
+            }
+        }
+
+        private void HandleHeavyAttackInput()
+        {
+            if (heavyAttack)
+            {
+                heavyAttack = false;
+
+                player.playerNetworkManager.SetCharacterAcionHand(true);
+
+                player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightWeapon.HeavyAttackAction, player.playerInventoryManager.currentRightWeapon);
+            }
+        }
+
+        private void HandleHoldAttackInput()
+        {
+            if (player.isPerformingAcion)
+            {
+                if (player.playerNetworkManager.isUsingRightHand.Value)
+                {
+                    player.playerNetworkManager.isHoldAttack.Value = holdAttack;
+                }
+            }
         }
         #endregion
 
@@ -253,52 +362,6 @@ namespace SA
                         player.playerCombatManager.SetTarget(PlayerCamera.instance.rightLockOnTarget);
                     }
                 }
-            }
-        }
-        #endregion
-
-        #region Actions
-        private void HandleDodgeInput()
-        {
-            if (dodgeInput)
-            {
-                dodgeInput = false;
-
-                player.playerLocomotionManager.AttemptToPerformDodge();
-            }
-        }
-
-        private void HandleSprintInput()
-        {
-            if (sprintInput)
-            {
-                player.playerLocomotionManager.HandleSprinting();
-            }
-            else
-            {
-                player.playerNetworkManager.isSprinting.Value = false;
-            }
-        }
-
-        private void HandleJumpInput()
-        {
-            if (jumpInput)
-            {
-                jumpInput = false;
-
-                player.playerLocomotionManager.AttemptToPerformJump();
-            }
-        }
-
-        private void HandleRBInput()
-        {
-            if (lightAttack)
-            {
-                lightAttack = false;
-
-                player.playerNetworkManager.SetCharacterAcionHand(true);
-
-                player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightWeapon.rbAction, player.playerInventoryManager.currentRightWeapon);
             }
         }
         #endregion

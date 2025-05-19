@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163ffeef6a46e5e4b834780c3c5f6469, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: unarmed
   itemIcon: {fileID: 0}
   itemDescription: 
-  itemID: 0
+  itemID: 3
   weaponModel: {fileID: 9208456196539859160, guid: 43d9e3ae5a010674eb27793ed0c9323c, type: 3}
   strengthREQ: 0
   dexREQ: 0
@@ -27,4 +27,10 @@ MonoBehaviour:
   lightningDamage: 0
   holyDamage: 0
   poiseDamage: 10
+  light_Attack_01_Modifier: 1.1
+  heavy_Attack_01_Modifier: 1.4
+  hold_Attack_01_Modifier: 2
   baseStaminaCost: 20
+  lightAttackStaminaCost: 0.9
+  lightAttackAction: {fileID: 11400000, guid: 5cc41e213e20af2489b5599667b0ddb3, type: 2}
+  HeavyAttackAction: {fileID: 11400000, guid: 995eec0177d1cad4c84f9013d6543438, type: 2}

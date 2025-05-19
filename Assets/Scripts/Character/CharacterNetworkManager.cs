@@ -26,6 +26,7 @@ namespace SA
         public NetworkVariable<bool> isLockOn = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isJumping = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> isHoldAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Resources")]
         public NetworkVariable<int> currentHealth = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -72,6 +73,11 @@ namespace SA
             {
                 character.characterCombatManager.currentTarget = null;
             }
+        }
+
+        public void OnIsHoldAttackChanged(bool oldState, bool newState)
+        {
+            character.anim.SetBool("IsHoldAttack", isHoldAttack.Value);
         }
 
         // 서버 RPC는 클라이언트에서 서버로 호출되는 함수 (현재는 호스트)

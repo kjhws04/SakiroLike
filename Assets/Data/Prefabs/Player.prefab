@@ -280,13 +280,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690613438990502112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.67266965, y: 0.32925454, z: -0.41146794, w: -0.5194239}
+  m_LocalRotation: {x: 0.72625273, y: 0.37296367, z: -0.372307, w: -0.44140974}
   m_LocalPosition: {x: 0.098, y: 0.026, z: -0.011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8301302302295203189}
-  m_LocalEulerAnglesHint: {x: -25.331, y: 262.25598, z: 105.634}
+  m_LocalEulerAnglesHint: {x: -21.311, y: 249.051, z: 110.885}
 --- !u!114 &2054113953224666774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2046,13 +2046,12 @@ MonoBehaviour:
   characterAnimationManager: {fileID: 0}
   characterCombatManager: {fileID: 0}
   characterSoundFXManager: {fileID: 0}
+  characterLocomotionManager: {fileID: 0}
   isPerformingAcion: 0
   isGrounded: 0
   applyRootMotion: 0
   canRotate: 1
   canMove: 1
-  respawnPlayer: 0
-  switchRightWeapon: 0
   playerAnimationManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
@@ -2072,6 +2071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671207fe5b8d7fd44b62b9c8ebda999a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   currentTarget: {fileID: 0}
   currentAttackType: 0
   lockOnTransform: {fileID: 168086545933783444}
@@ -2097,6 +2097,7 @@ MonoBehaviour:
   groundedYVelocity: -20
   fallStartYVelocity: -5
   inAirTimer: 0
+  isRolling: 0
   verticalMovement: 0
   horizontalMovement: 0
   moveAmount: 0
@@ -2164,11 +2165,15 @@ MonoBehaviour:
     m_InternalValue: 0
   animatorMoveAmount:
     m_InternalValue: 0
+  currentTargetNetworkObjectID:
+    m_InternalValue: 0
   isLockOn:
     m_InternalValue: 0
   isSprinting:
     m_InternalValue: 0
   isJumping:
+    m_InternalValue: 0
+  isHoldAttack:
     m_InternalValue: 0
   currentHealth:
     m_InternalValue: 0
@@ -2447,7 +2452,7 @@ MonoBehaviour:
   weaponInLeftHandSlots:
   - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
   - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
-  - {fileID: 11400000, guid: 35c573023833cac48995341192f27223, type: 2}
+  - {fileID: 11400000, guid: c6d032642153e874f893be641574f34b, type: 2}
   leftHandSlotIndex: 0
 --- !u!114 &6196088611575384074
 MonoBehaviour:
