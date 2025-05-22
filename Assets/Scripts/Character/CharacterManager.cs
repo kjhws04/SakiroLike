@@ -3,6 +3,7 @@ using Unity.Netcode;
 using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 
 namespace SA
 {
@@ -20,6 +21,9 @@ namespace SA
         [HideInInspector] public CharacterCombatManager characterCombatManager;
         [HideInInspector] public CharacterSoundFXManager characterSoundFXManager;
         [HideInInspector] public CharacterLocomotionManager characterLocomotionManager;
+
+        [Header("Character Group")]
+        public CharacterGroup characterGroup;
 
         [Header("Flag")]
         public bool isPerformingAcion = false;
@@ -74,9 +78,27 @@ namespace SA
             }
         }
 
+        protected virtual void FixedUpdate()
+        {
+        }
+
         protected virtual void LateUpdate()
         {
 
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+
+            characterNetworkManager.isMoving.OnValueChanged -= characterNetworkManager.OnIsMovingChanged;
         }
 
         public virtual IEnumerator PrecessDeathEvent(bool manuallySelectDeathAnimation = false)

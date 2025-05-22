@@ -8,6 +8,7 @@ namespace SA
         CharacterManager character;
 
         [Header("Position")]
+
         public NetworkVariable<Vector3> networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<Quaternion> networkRotation = new NetworkVariable<Quaternion>(Quaternion.identity, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public Vector3 networkPositionVelocity;
@@ -15,6 +16,7 @@ namespace SA
         public float networkRotationSmoothTime = 0.1f;
 
         [Header("Animator")]
+        public NetworkVariable<bool> isMoving = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> animatorHorizontalMovement = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> animatorVerticalMovement = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> animatorMoveAmount = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -78,6 +80,11 @@ namespace SA
         public void OnIsHoldAttackChanged(bool oldState, bool newState)
         {
             character.anim.SetBool("IsHoldAttack", isHoldAttack.Value);
+        }
+
+        public void OnIsMovingChanged(bool oldState, bool newState)
+        {
+            character.anim.SetBool("IsMoving", isMoving.Value);
         }
 
         // 서버 RPC는 클라이언트에서 서버로 호출되는 함수 (현재는 호스트)
