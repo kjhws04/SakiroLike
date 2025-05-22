@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene_World_01.unity
     guid: 84a682197d5393e41afe2528825127e6
   - enabled: 1
-    path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
+    path: Assets/@Asset/NGO_Minimal_Setup/NGO_Setup.unity
     guid: cbde9efa7d17302408daa4b53d035a5f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 370b78d302073774ab0a08737332634f, type: 2}

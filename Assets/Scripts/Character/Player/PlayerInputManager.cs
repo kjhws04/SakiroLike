@@ -185,6 +185,15 @@ namespace SA
             if (player == null)
                 return;
 
+            if (moveAmount != 0)
+            {
+                player.playerNetworkManager.isMoving.Value = true;
+            }
+            else
+            {
+                player.playerNetworkManager.isMoving.Value = false;
+            }
+
             if (!player.playerNetworkManager.isLockOn.Value || player.playerNetworkManager.isSprinting.Value)
             {
                 player.playerAnimationManager.UpdateanimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
