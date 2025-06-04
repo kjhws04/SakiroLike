@@ -18,7 +18,7 @@ namespace SA
             // host
             if (aiCharacter.IsOwner)
             {
-                if (!aiCharacter.isGrounded)
+                if (!aiCharacter.characterLocomotionManager.isGrounded)
                     return;
 
                 Vector3 velocity = aiCharacter.anim.deltaPosition;
@@ -28,7 +28,7 @@ namespace SA
             // client
             else
             {
-                if (!aiCharacter.isGrounded)
+                if (!aiCharacter.characterLocomotionManager.isGrounded)
                     return;
 
                 Vector3 velocity = aiCharacter.anim.deltaPosition;

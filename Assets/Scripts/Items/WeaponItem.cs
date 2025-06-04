@@ -38,5 +38,8 @@ namespace SA
         [Header("Actions")]
         public WeaponItemAction lightAttackAction;
         public WeaponItemAction HeavyAttackAction;
+
+        [Header("Whooshes")]
+        public AudioClip[] whooshes;
     }
 }

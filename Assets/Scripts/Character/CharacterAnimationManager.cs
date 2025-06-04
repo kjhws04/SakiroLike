@@ -12,6 +12,9 @@ namespace SA
         int horizontal;
         int vertical;
 
+        [Header("Flags")]
+        public bool applyRootMotion = false;
+
         [Header("Damage Animations")]
         public string lastDamageAnimationPlayed;
 
@@ -149,9 +152,9 @@ namespace SA
 
             // 캐릭터가 새로운 액션을 시도하는 것을 막기 위해 사용. 예를 들어, 피해 애니메이션을 시작하면 이 플래그가 true가 됨
             character.isPerformingAcion = isPerformingAction;
-            character.applyRootMotion = applyRootMotion;
-            character.canRotate = canRotate;
-            character.canMove = canMove;
+            character.characterAnimationManager.applyRootMotion = applyRootMotion;
+            character.characterLocomotionManager.canRotate = canRotate;
+            character.characterLocomotionManager.canMove = canMove;
 
             character.characterNetworkManager.NotifyTheServerOfAcionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
         }
@@ -171,9 +174,9 @@ namespace SA
 
             // 캐릭터가 새로운 액션을 시도하는 것을 막기 위해 사용. 예를 들어, 피해 애니메이션을 시작하면 이 플래그가 true가 됨
             character.isPerformingAcion = isPerformingAction;
-            character.applyRootMotion = applyRootMotion;
-            character.canRotate = canRotate;
-            character.canMove = canMove;
+            character.characterAnimationManager.applyRootMotion = applyRootMotion;
+            character.characterLocomotionManager.canRotate = canRotate;
+            character.characterLocomotionManager.canMove = canMove;
 
             character.characterNetworkManager.NotifyTheServerOfAcionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
         }

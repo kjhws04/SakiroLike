@@ -28,7 +28,15 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 25
   light_Attack_01_Modifier: 1.1
+  light_Attack_02_Modifier: 1.2
+  heavy_Attack_01_Modifier: 1.4
+  heavy_Attack_02_Modifier: 1.5
+  hold_Attack_01_Modifier: 2
+  hold_Attack_02_Modifier: 2.5
   baseStaminaCost: 20
   lightAttackStaminaCost: 0.9
   lightAttackAction: {fileID: 11400000, guid: 5cc41e213e20af2489b5599667b0ddb3, type: 2}
   HeavyAttackAction: {fileID: 11400000, guid: 995eec0177d1cad4c84f9013d6543438, type: 2}
+  whooshes:
+  - {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
+  - {fileID: 8300000, guid: 482611fe6bc559142a00be6e726b4862, type: 3}

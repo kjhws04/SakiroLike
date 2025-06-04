@@ -4,6 +4,7 @@ using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using UnityEngine.TextCore.Text;
 
 namespace SA
 {
@@ -27,10 +28,6 @@ namespace SA
 
         [Header("Flag")]
         public bool isPerformingAcion = false;
-        public bool isGrounded = false; 
-        public bool applyRootMotion = false;    
-        public bool canRotate = true;
-        public bool canMove = true;
 
         protected virtual void Awake()
         {
@@ -54,7 +51,7 @@ namespace SA
 
         protected virtual void Update()
         {
-            anim.SetBool("isGrounded", isGrounded);
+            anim.SetBool("isGrounded", characterLocomotionManager.isGrounded);
 
             if (IsOwner)
             {
@@ -91,6 +88,7 @@ namespace SA
         {
             base.OnNetworkSpawn();
 
+            anim.SetBool("IsMoving", characterNetworkManager.isMoving.Value);
             characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
         }
 
