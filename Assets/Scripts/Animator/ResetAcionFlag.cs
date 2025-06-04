@@ -16,9 +16,9 @@ namespace SA
             }
 
             character.isPerformingAcion = false;
-            character.applyRootMotion = false;
-            character.canRotate = true;
-            character.canMove = true;
+            character.characterAnimationManager.applyRootMotion = false;
+            character.characterLocomotionManager.canRotate = true;
+            character.characterLocomotionManager.canMove = true;
             character.characterLocomotionManager.isRolling = false;
             character.characterAnimationManager.DisableCanDoCombo();
 

@@ -28,6 +28,11 @@ namespace SA
             aiCharacter.aiCharacterLocomotionManager.RotateTowardsAgent(aiCharacter);
 
             // 4. 대상이 전투 가능 범위 안에 있으면 combat 상태로 전환
+            //if (aiCharacter.aiCharacterCombatManager.distanceFromTarget <= aiCharacter.combat.maxiumEngagementDistance)
+            //    return SwitchState(aiCharacter, aiCharacter.combat);
+
+            if (aiCharacter.aiCharacterCombatManager.distanceFromTarget <= aiCharacter.navMeshAgent.stoppingDistance)
+                return SwitchState(aiCharacter, aiCharacter.attack);
 
             // 5. 대상에게 도달할 수 없거나 멀리 있으면 원래 위치로 돌아감
 

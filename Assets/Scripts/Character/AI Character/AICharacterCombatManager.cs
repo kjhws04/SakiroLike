@@ -1,11 +1,18 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Windows.Speech;
 
 namespace SA
 {
     public class AICharacterCombatManager : CharacterCombatManager
     {
+        protected AICharacterManager aiCharacter;
+
+        [Header("Action Recovery")]
+        public float actionRecoveryTime = 0f;
+
         [Header("Target Information")]
+        public float distanceFromTarget;
         public float viewableAngle;
         public Vector3 targetsDirection;
 
@@ -13,6 +20,17 @@ namespace SA
         [SerializeField] float detectionRadius = 15f;
         public float minimumFOV = -35f;
         public float maximumFOV = 35f;
+
+        [Header("Attack Rotation Speed")]
+        public float attackRotationSpeed = 25f;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            aiCharacter = GetComponent<AICharacterManager>();
+            lockOnTransform = GetComponentInChildren<LockOnTransform>().transform;
+        }
 
         public void FindATargetViaLineOfSight(AICharacterManager aiCharacter)
         {
@@ -99,6 +117,48 @@ namespace SA
             else if (viewableAngle <= -161 && viewableAngle >= -180)
             {
                 aiCharacter.characterAnimationManager.PlayTargetActionAnimation("Turn_Left_180", true);
+            }
+        }
+
+        public void RotateTowardsAgent(AICharacterManager aiCharacter)
+        {
+            if (aiCharacter.aiCharacterNetworkManager.isMoving.Value)
+            {
+                aiCharacter.transform.rotation = aiCharacter.navMeshAgent.transform.rotation;
+            }
+        }
+
+        public void RotateTowardsTargetWhilstAttacking(AICharacterManager aiCharacter)
+        {
+            if (currentTarget == null)
+                return;
+
+            if (!aiCharacter.characterLocomotionManager.canRotate)
+                return;
+
+            if (!aiCharacter.isPerformingAcion)
+                return;
+
+            Vector3 targetDirection = currentTarget.transform.position - aiCharacter.transform.position;
+            targetDirection.y = 0f; // Y축 회전을 방지하기 위해 Y값을 0으로 설정
+            targetDirection.Normalize();
+
+            if (targetDirection == Vector3.zero)
+                targetDirection = aiCharacter.transform.forward;
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+            aiCharacter.transform.rotation = Quaternion.Slerp(aiCharacter.transform.rotation, targetRotation, attackRotationSpeed * Time.deltaTime);
+        }
+
+        public void HandleActionRecovery(AICharacterManager aiCharacter)
+        {
+            if (actionRecoveryTime > 0f)
+            {
+                if (aiCharacter.isPerformingAcion)
+                {
+                    actionRecoveryTime -= Time.deltaTime;
+                }
             }
         }
     }

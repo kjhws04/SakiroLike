@@ -17,7 +17,7 @@ namespace SA
             if (playerPerformingAcion.playerNetworkManager.currentStamina.Value <= 0)
                 return;
 
-            if (!playerPerformingAcion.isGrounded)
+            if (!playerPerformingAcion.characterLocomotionManager.isGrounded)
                 return;
 
             PerformHeavyAttack(playerPerformingAcion, weaponPerformingAction);

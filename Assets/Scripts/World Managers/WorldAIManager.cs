@@ -11,12 +11,8 @@ namespace SA
     {
         public static WorldAIManager instance;
 
-        [Header("Debug")]
-        [SerializeField] bool despawnCharacters = false;
-        [SerializeField] bool respawnCharacters = false;
-
         [Header("Characters")]
-        [SerializeField] GameObject[] aiCharacters;
+        [SerializeField] List<AICharacterSpawner> aiCharacterSpawners;
         [SerializeField] List<GameObject> spawnedInCharacters;
 
         private void Awake()
@@ -31,49 +27,12 @@ namespace SA
             }
         }
 
-        private void Start()
+        public void SpawnCharacters(AICharacterSpawner aiCharacterSpawner)
         {
             if (NetworkManager.Singleton.IsServer)
             {
-                StartCoroutine(WaitForSceneToLoadThenSpawnCharacters());
-            }
-            else
-            {
-                // Initialize client-side logic here
-            }
-        }
-
-        private void Update()
-        {
-            if (respawnCharacters)
-            {
-                respawnCharacters = false;
-                SpawnAllCharacters();
-            }
-
-            if (despawnCharacters)
-            {
-                despawnCharacters = false;
-                DespawnAllCharacters();
-            }
-        }
-
-        private IEnumerator WaitForSceneToLoadThenSpawnCharacters()
-        {
-            while (!SceneManager.GetActiveScene().isLoaded)
-            {
-                yield return null;
-            }
-            SpawnAllCharacters();
-        }
-
-        private void SpawnAllCharacters()
-        {
-            foreach (var character in aiCharacters)
-            {
-                GameObject instantiatedCharacter = Instantiate(character);
-                instantiatedCharacter.GetComponent<NetworkObject>().Spawn();
-                spawnedInCharacters.Add(instantiatedCharacter);
+                aiCharacterSpawners.Add(aiCharacterSpawner);
+                aiCharacterSpawner.AttemptToSpawnCharacter();
             }
         }
 

@@ -5339,6 +5339,10 @@ PrefabInstance:
       value: Player Camera (Left & RIght)
       objectReference: {fileID: 0}
     - target: {fileID: 3303612031095279817, guid: 89cc9e18c7d346d46a7f538c3768e936, type: 3}
+      propertyPath: lockedCameraHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3303612031095279817, guid: 89cc9e18c7d346d46a7f538c3768e936, type: 3}
       propertyPath: inlockedCameraHeight
       value: 2
       objectReference: {fileID: 0}

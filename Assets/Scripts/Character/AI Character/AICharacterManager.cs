@@ -19,8 +19,8 @@ namespace SA
         [Header("States")]
         public IdleState idle;
         public PursueTargetState pursueTarget;
-        // combat
-        // attack
+        public CombatState combat;
+        public AttackState attack;
 
         protected override void Awake()
         {
@@ -36,6 +36,13 @@ namespace SA
             pursueTarget = Instantiate(pursueTarget);
 
             currentState = idle;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            aiCharacterCombatManager.HandleActionRecovery(this);
         }
 
         protected override void FixedUpdate()
@@ -63,6 +70,7 @@ namespace SA
             {
                 aiCharacterCombatManager.targetsDirection = aiCharacterCombatManager.currentTarget.transform.position - transform.position;
                 aiCharacterCombatManager.viewableAngle = WorldUtillityManager.instance.GetAngleOfTarget(transform, aiCharacterCombatManager.targetsDirection);
+                aiCharacterCombatManager.distanceFromTarget = Vector3.Distance(transform.position, aiCharacterCombatManager.currentTarget.transform.position);
             }
 
             if (navMeshAgent.enabled)

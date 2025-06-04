@@ -81,7 +81,7 @@ namespace SA
         #region Movement
         private void HandleGroundedMovement()
         {
-            if (!player.canRotate)
+            if (!player.characterLocomotionManager.canRotate)
                 return;
 
             GetMovementValue();
@@ -158,7 +158,7 @@ namespace SA
             if (player.isDead.Value)
                 return;
 
-            if (!player.canRotate)
+            if (!player.characterLocomotionManager.canRotate)
                 return;
 
             if (player.playerNetworkManager.isLockOn.Value)
@@ -235,7 +235,7 @@ namespace SA
 
         private void HandleFreeFallMovement()
         {
-            if (!player.isGrounded)
+            if (!player.characterLocomotionManager.isGrounded)
             {
                 Vector3 freeFallDirection;
 
@@ -297,7 +297,7 @@ namespace SA
             if (player.characterNetworkManager.isJumping.Value)
                 return;
 
-            if (!player.isGrounded)
+            if (!player.characterLocomotionManager.isGrounded)
                 return;
 
             JumpAnimAndBoolAndCostCheck();

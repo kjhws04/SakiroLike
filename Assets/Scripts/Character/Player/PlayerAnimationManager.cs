@@ -15,7 +15,7 @@ namespace SA
 
         private void OnAnimatorMove()
         {
-            if (player.applyRootMotion)
+            if (player.characterAnimationManager.applyRootMotion)
             {
                 Vector3 velocity = player.anim.deltaPosition;
                 player.characterController.Move(velocity);
