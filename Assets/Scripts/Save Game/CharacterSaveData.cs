@@ -31,5 +31,15 @@ namespace SA
         [Header("Stats")]
         public int vitality;
         public int endurance;
+
+        [Header("Bosses")]
+        public SerialzebleDictionary<int, bool> bossesAwakened; // the int it the boss id, the bool is the awakened state
+        public SerialzebleDictionary<int, bool> bossesDefeated; // the int it the boss id, the bool is the defeated state
+
+        public CharacterSaveData()
+        {
+            bossesAwakened = new SerialzebleDictionary<int, bool>();
+            bossesDefeated = new SerialzebleDictionary<int, bool>();
+        }
     }
 }

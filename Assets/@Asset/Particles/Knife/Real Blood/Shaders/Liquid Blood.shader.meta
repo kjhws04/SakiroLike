@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 46122ee548c6d2746ba7b7c74a027d53
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 158913
+  packageName: Real Blood
+  packageVersion: 1.3
+  assetPath: Assets/Knife/Real Blood/Shaders/Liquid Blood.shader
+  uploadId: 628033

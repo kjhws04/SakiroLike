@@ -7,6 +7,9 @@ namespace SA
     {
         [SerializeField] string light_Attack_01 = "Main_Light_Attack_01";
         [SerializeField] string light_Attack_02 = "Main_Light_Attack_02";
+        [SerializeField] string light_Attack_03 = "Main_Light_Attack_03";
+        [SerializeField] string light_Attack_04 = "Main_Light_Attack_04";
+        [SerializeField] string light_Attack_05 = "Main_Light_Attack_05";
 
         public override void AttemptToPerformAction(PlayerManager playerPerformingAcion, WeaponItem weaponPerformingAction)
         {
@@ -23,24 +26,30 @@ namespace SA
             PerformLightAttack(playerPerformingAcion, weaponPerformingAction);
         }
 
-        private void PerformLightAttack(PlayerManager playerPerformingAcion, WeaponItem weaponPerformingAction)
+        private void PerformLightAttack(PlayerManager player, WeaponItem weapon)
         {
-            if (playerPerformingAcion.playerCombatManager.canComboWithMainHandWeapon && playerPerformingAcion.isPerformingAcion)
-            {
-                playerPerformingAcion.playerCombatManager.canComboWithMainHandWeapon = false;
+            var combatManager = player.playerCombatManager;
+            var animationManager = player.playerAnimationManager;
+            string lastAttack = player.characterCombatManager.lastAttackAnimationPerformed;
 
-                if (playerPerformingAcion.characterCombatManager.lastAttackAnimationPerformed == light_Attack_01)
-                {
-                    playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack02, light_Attack_02, true);
-                }
-                else
-                {
-                    playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack01, light_Attack_01, true);
-                }
-            }
-            else if (!playerPerformingAcion.isPerformingAcion)
+            if (combatManager.canComboWithMainHandWeapon && player.isPerformingAcion)
             {
-                playerPerformingAcion.playerAnimationManager.PlayTargetAttackAnimation(AttackType.LightAttack01, light_Attack_01, true);
+                combatManager.canComboWithMainHandWeapon = false;
+
+                if (lastAttack == light_Attack_01)
+                    animationManager.PlayTargetAttackAnimation(AttackType.LightAttack03, light_Attack_02, true);
+                else if (lastAttack == light_Attack_02)
+                    animationManager.PlayTargetAttackAnimation(AttackType.LightAttack03, light_Attack_03, true);
+                else if (lastAttack == light_Attack_03)
+                    animationManager.PlayTargetAttackAnimation(AttackType.LightAttack04, light_Attack_04, true);
+                else if (lastAttack == light_Attack_04)
+                    animationManager.PlayTargetAttackAnimation(AttackType.LightAttack05, light_Attack_05, true);
+                else
+                    animationManager.PlayTargetAttackAnimation(AttackType.LightAttack02, light_Attack_01, true); // fallback
+            }
+            else if (!player.isPerformingAcion)
+            {
+                animationManager.PlayTargetAttackAnimation(AttackType.LightAttack01, light_Attack_01, true, false);
             }
         }
     }

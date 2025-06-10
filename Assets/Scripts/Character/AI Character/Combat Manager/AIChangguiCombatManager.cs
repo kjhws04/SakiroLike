@@ -5,8 +5,8 @@ namespace SA
     public class AIChangguiCombatManager : AICharacterCombatManager
     {
         [Header("Changgui Damage Collider")]
-        [SerializeField] ChangguiDamageCollider rightHandDamageCollider;
-        [SerializeField] ChangguiDamageCollider leftHandDamageCollider;
+        [SerializeField] MonsterDamageCollider rightHandDamageCollider;
+        [SerializeField] MonsterDamageCollider leftHandDamageCollider;
 
         [Header("Damage")]
         [SerializeField] float baseDamage = 25;

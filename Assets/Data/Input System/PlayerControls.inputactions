@@ -173,23 +173,14 @@
                     "id": "9a528d38-f72a-4ac5-b002-70248a640ffc",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Heavy Attack",
-                    "type": "Button",
-                    "id": "10824f60-584c-4652-9037-abc894abb603",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Hold Attack",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "364ad98b-e50d-4005-bf39-d6589c5f5c06",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -285,19 +276,8 @@
                 },
                 {
                     "name": "",
-                    "id": "36682161-ea92-4fdb-9a41-f540342bd45f",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Heavy Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5b8b54fe-fc4e-49fa-a3f5-c30e9badb1ca",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -378,7 +358,7 @@
             "id": "c57bdb20-0f6e-4526-ba72-67d4adbe62cf",
             "actions": [
                 {
-                    "name": "Enter",
+                    "name": "Delete",
                     "type": "Button",
                     "id": "4d726542-7d12-4370-b0e4-9f9ed90df69c",
                     "expectedControlType": "",
@@ -391,11 +371,11 @@
                 {
                     "name": "",
                     "id": "879bee4f-49e8-415a-825e-1b98e3f5738a",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Enter",
+                    "action": "Delete",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -11,6 +11,9 @@ namespace SA
         [Header("Weapon Attack Modifiers")]
         public float light_Attack_01_Modifier;
         public float light_Attack_02_Modifier;
+        public float light_Attack_03_Modifier;
+        public float light_Attack_04_Modifier;
+        public float light_Attack_05_Modifier;
         public float heavy_Attack_01_Modifier;
         public float heavy_Attack_02_Modifier;
         public float hold_Attack_01_Modifier;   
@@ -74,6 +77,15 @@ namespace SA
                     break;
                 case AttackType.LightAttack02:
                     ApplyAttackDamageModifiers(light_Attack_02_Modifier, damageEffect);
+                    break;
+                case AttackType.LightAttack03:
+                        ApplyAttackDamageModifiers(light_Attack_03_Modifier, damageEffect);
+                    break;
+                case AttackType.LightAttack04:
+                        ApplyAttackDamageModifiers(light_Attack_04_Modifier, damageEffect);
+                    break;
+                case AttackType.LightAttack05:
+                        ApplyAttackDamageModifiers(light_Attack_05_Modifier, damageEffect);
                     break;
                 case AttackType.HeavyAttack01:
                     ApplyAttackDamageModifiers(heavy_Attack_01_Modifier, damageEffect);
