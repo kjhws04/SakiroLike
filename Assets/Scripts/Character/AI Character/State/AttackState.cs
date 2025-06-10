@@ -64,6 +64,12 @@ namespace SA
         protected void PerformAttack(AICharacterManager aiCharacter)
         {
             hasPerformedAttack = true;
+
+            if (currentAttack == null)
+            {
+                return;
+            }
+
             currentAttack.AttemptToPerformAction(aiCharacter);
             aiCharacter.aiCharacterCombatManager.actionRecoveryTime = currentAttack.actionRecoveryTime;
         }

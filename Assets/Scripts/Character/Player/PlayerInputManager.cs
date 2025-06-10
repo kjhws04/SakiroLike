@@ -37,7 +37,6 @@ namespace SA
 
         [Header("Character Attack Input")]
         [SerializeField] bool lightAttack = false;
-        [SerializeField] bool heavyAttack = false;
         [SerializeField] bool holdAttack = false;
 
         private void Awake()
@@ -108,7 +107,6 @@ namespace SA
 
                 // Attack Input
                 playerControls.PlayerActions.LightAttack.performed += ctx => lightAttack = true;
-                playerControls.PlayerActions.HeavyAttack.performed += ctx => heavyAttack = true;
                 playerControls.PlayerActions.HoldAttack.performed += ctx => holdAttack = true;
                 playerControls.PlayerActions.HoldAttack.canceled += ctx => holdAttack = false;
 
@@ -278,13 +276,15 @@ namespace SA
 
         private void HandleHeavyAttackInput()
         {
-            if (heavyAttack)
+            if (holdAttack)
             {
-                heavyAttack = false;
+                holdAttack = false;
 
                 player.playerNetworkManager.SetCharacterAcionHand(true);
 
-                player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightWeapon.HeavyAttackAction, player.playerInventoryManager.currentRightWeapon);
+                player.playerCombatManager.PerformWeaponBasedAction(
+                    player.playerInventoryManager.currentRightWeapon.HeavyAttackAction, 
+                    player.playerInventoryManager.currentRightWeapon);
             }
         }
 

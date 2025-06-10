@@ -7,8 +7,10 @@ namespace SA
     {
         CharacterManager character;
 
-        [Header("Position")]
+        [Header("Active")]
+        public NetworkVariable<bool> isActive = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Position")]
         public NetworkVariable<Vector3> networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<Quaternion> networkRotation = new NetworkVariable<Quaternion>(Quaternion.identity, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public Vector3 networkPositionVelocity;
@@ -85,6 +87,11 @@ namespace SA
         public void OnIsMovingChanged(bool oldState, bool newState)
         {
             character.anim.SetBool("IsMoving", isMoving.Value);
+        }
+
+        public void OnIsActiveChanged(bool oldState, bool newState)
+        {
+            gameObject.SetActive(isActive.Value);
         }
 
         // 서버 RPC는 클라이언트에서 서버로 호출되는 함수 (현재는 호스트)

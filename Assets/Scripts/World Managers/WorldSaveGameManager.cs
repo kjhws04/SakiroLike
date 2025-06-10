@@ -248,8 +248,8 @@ namespace SA
             saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
             saveFileDataWriter.saveFileName = saveFileName;
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
-
-            NewGame();
+            
+            StartCoroutine(LoadWorldScene());
         }
 
         public void SaveGame()

@@ -195,23 +195,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""9a528d38-f72a-4ac5-b002-70248a640ffc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Heavy Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""10824f60-584c-4652-9037-abc894abb603"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Hold Attack"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""364ad98b-e50d-4005-bf39-d6589c5f5c06"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -307,19 +298,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""36682161-ea92-4fdb-9a41-f540342bd45f"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Heavy Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""5b8b54fe-fc4e-49fa-a3f5-c30e9badb1ca"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -400,7 +380,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""c57bdb20-0f6e-4526-ba72-67d4adbe62cf"",
             ""actions"": [
                 {
-                    ""name"": ""Enter"",
+                    ""name"": ""Delete"",
                     ""type"": ""Button"",
                     ""id"": ""4d726542-7d12-4370-b0e4-9f9ed90df69c"",
                     ""expectedControlType"": """",
@@ -413,11 +393,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""879bee4f-49e8-415a-825e-1b98e3f5738a"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Enter"",
+                    ""action"": ""Delete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -454,7 +434,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_LightAttack = m_PlayerActions.FindAction("Light Attack", throwIfNotFound: true);
-        m_PlayerActions_HeavyAttack = m_PlayerActions.FindAction("Heavy Attack", throwIfNotFound: true);
         m_PlayerActions_HoldAttack = m_PlayerActions.FindAction("Hold Attack", throwIfNotFound: true);
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("Lock On", throwIfNotFound: true);
@@ -464,7 +443,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_SwitchRightWeapon = m_PlayerActions.FindAction("Switch Right Weapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
+        m_UI_Delete = m_UI.FindAction("Delete", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -629,7 +608,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Dodge;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_LightAttack;
-    private readonly InputAction m_PlayerActions_HeavyAttack;
     private readonly InputAction m_PlayerActions_HoldAttack;
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_LockOn;
@@ -644,7 +622,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @LightAttack => m_Wrapper.m_PlayerActions_LightAttack;
-        public InputAction @HeavyAttack => m_Wrapper.m_PlayerActions_HeavyAttack;
         public InputAction @HoldAttack => m_Wrapper.m_PlayerActions_HoldAttack;
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
@@ -670,9 +647,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LightAttack.started += instance.OnLightAttack;
             @LightAttack.performed += instance.OnLightAttack;
             @LightAttack.canceled += instance.OnLightAttack;
-            @HeavyAttack.started += instance.OnHeavyAttack;
-            @HeavyAttack.performed += instance.OnHeavyAttack;
-            @HeavyAttack.canceled += instance.OnHeavyAttack;
             @HoldAttack.started += instance.OnHoldAttack;
             @HoldAttack.performed += instance.OnHoldAttack;
             @HoldAttack.canceled += instance.OnHoldAttack;
@@ -707,9 +681,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LightAttack.started -= instance.OnLightAttack;
             @LightAttack.performed -= instance.OnLightAttack;
             @LightAttack.canceled -= instance.OnLightAttack;
-            @HeavyAttack.started -= instance.OnHeavyAttack;
-            @HeavyAttack.performed -= instance.OnHeavyAttack;
-            @HeavyAttack.canceled -= instance.OnHeavyAttack;
             @HoldAttack.started -= instance.OnHoldAttack;
             @HoldAttack.performed -= instance.OnHoldAttack;
             @HoldAttack.canceled -= instance.OnHoldAttack;
@@ -752,12 +723,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_Enter;
+    private readonly InputAction m_UI_Delete;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Enter => m_Wrapper.m_UI_Enter;
+        public InputAction @Delete => m_Wrapper.m_UI_Delete;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -767,16 +738,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-            @Enter.started += instance.OnEnter;
-            @Enter.performed += instance.OnEnter;
-            @Enter.canceled += instance.OnEnter;
+            @Delete.started += instance.OnDelete;
+            @Delete.performed += instance.OnDelete;
+            @Delete.canceled += instance.OnDelete;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
         {
-            @Enter.started -= instance.OnEnter;
-            @Enter.performed -= instance.OnEnter;
-            @Enter.canceled -= instance.OnEnter;
+            @Delete.started -= instance.OnDelete;
+            @Delete.performed -= instance.OnDelete;
+            @Delete.canceled -= instance.OnDelete;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -816,7 +787,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDodge(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLightAttack(InputAction.CallbackContext context);
-        void OnHeavyAttack(InputAction.CallbackContext context);
         void OnHoldAttack(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
@@ -827,6 +797,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public interface IUIActions
     {
-        void OnEnter(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
     }
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e9f0149c429d7ac4bb82457b34ee12d4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 158913
+  packageName: Real Blood
+  packageVersion: 1.3
+  assetPath: Assets/Knife/Real Blood/Animations/Dolls/DollExplosion.controller
+  uploadId: 628033

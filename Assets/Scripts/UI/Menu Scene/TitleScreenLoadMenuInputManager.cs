@@ -24,7 +24,7 @@ namespace SA
             if (playerControls == null)
             {
                 playerControls = new PlayerControls();
-                playerControls.UI.Enter.performed += ctx => deleteCharacterSlot = true;
+                playerControls.UI.Delete.performed += ctx => deleteCharacterSlot = true;
             }
 
             playerControls.Enable();
